@@ -21,6 +21,8 @@ public class FriendFacade {
     @Transactional
     public void createFriend(long memberId, long friendMemberId){
         memberService.validateMember(friendMemberId);
+        friendService.validateFriend(memberId, friendMemberId);
+
         friendService.createFriend(memberId, friendMemberId);
     }
 
