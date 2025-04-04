@@ -2,8 +2,9 @@ package com.example.chatting.member.service;
 
 import com.example.chatting.commons.exceptions.CustomException;
 import com.example.chatting.commons.exceptions.CustomExceptionType;
+import com.example.chatting.member.controller.dto.response.LoginResponse;
 import com.example.chatting.member.domain.Member;
-import com.example.chatting.member.repository.MemberRepository;
+import com.example.chatting.member.infrastructure.MemberRepository;
 import com.example.chatting.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    public String login(String email, String password){
+    public LoginResponse login(String email, String password){
         Member member = memberRepository.findByEmail(email)
                                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
 
@@ -40,6 +41,14 @@ public class MemberService {
             throw new CustomException(CustomExceptionType.INVALID_PASSWORD);
         }
 
-        return jwtProvider.generateToken(member.getEmail());
+        long memberId = member.getId();
+        String jwtToken = jwtProvider.generateToken(member.getEmail());
+
+        return LoginResponse.of(memberId, jwtToken);
+    }
+
+    public void validateMember(long memberId){
+        memberRepository.findById(memberId)
+                        .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
     }
 }

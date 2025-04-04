@@ -33,9 +33,7 @@ public class MemberController {
         String email = request.getEmail();
         String password = request.getPassword();
 
-        String jwtToken = memberService.login(email, password);
-        LoginResponse loginResponse = LoginResponse.of(jwtToken);
-
+        LoginResponse loginResponse  = memberService.login(email, password);
         return ResponseEntity.status(HttpStatus.OK).body(loginResponse);
     }
 }

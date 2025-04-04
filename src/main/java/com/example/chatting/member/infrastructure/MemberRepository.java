@@ -1,4 +1,4 @@
-package com.example.chatting.member.repository;
+package com.example.chatting.member.infrastructure;
 
 import com.example.chatting.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
