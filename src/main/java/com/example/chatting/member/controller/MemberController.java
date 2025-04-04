@@ -21,10 +21,10 @@ public class MemberController {
         String name = request.getName();
         String email = request.getEmail();
         String password = request.getPassword();
-        String makeStarId = request.getMakeStarId();
+        String serviceId = request.getServiceId();
         String phoneNumber = request.getPhoneNumber();
 
-        memberService.createMember(name, email, password, makeStarId, phoneNumber);
+        memberService.createMember(name, email, password, serviceId, phoneNumber);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

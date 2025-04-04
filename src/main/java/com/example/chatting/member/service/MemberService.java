@@ -21,7 +21,7 @@ public class MemberService {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
-    public void createMember(String name, String email, String password, String makeStarId, String phoneNumber){
+    public void createMember(String name, String email, String password, String serviceId, String phoneNumber){
         Optional<Member> memberOpt = memberRepository.findByEmail(email);
 
         if(memberOpt.isPresent()){
@@ -30,7 +30,7 @@ public class MemberService {
 
         String encodedPassword = passwordEncoder.encode(password);
 
-        Member member = Member.of(name, email, encodedPassword, makeStarId, phoneNumber);
+        Member member = Member.of(name, email, encodedPassword, serviceId, phoneNumber);
         memberRepository.save(member);
     }
 
