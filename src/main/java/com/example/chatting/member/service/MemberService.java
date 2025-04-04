@@ -10,6 +10,7 @@ import com.example.chatting.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ public class MemberService {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void createMember(String name, String email, String password, String serviceId, String phoneNumber){
         Optional<Member> memberOpt = memberRepository.findByEmail(email);
 
@@ -51,6 +53,12 @@ public class MemberService {
     public void validateMember(long memberId){
         memberRepository.findById(memberId)
                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+    }
+
+    public String getMemberNameById(long memberId){
+        Member member = memberRepository.findById(memberId)
+                                        .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+        return member.getName();
     }
 
     public MemberResponse getMemberByServiceId(String serviceId){
