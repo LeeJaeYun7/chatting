@@ -9,4 +9,6 @@ public class MemberCreateRequest {
     private String name;
     private String email;
     private String password;
+    private String serviceId;
+    private String phoneNumber;
 }

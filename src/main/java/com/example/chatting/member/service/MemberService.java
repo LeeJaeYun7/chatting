@@ -3,6 +3,7 @@ package com.example.chatting.member.service;
 import com.example.chatting.commons.exceptions.CustomException;
 import com.example.chatting.commons.exceptions.CustomExceptionType;
 import com.example.chatting.member.controller.dto.response.LoginResponse;
+import com.example.chatting.member.controller.dto.response.MemberResponse;
 import com.example.chatting.member.domain.Member;
 import com.example.chatting.member.infrastructure.MemberRepository;
 import com.example.chatting.security.JwtProvider;
@@ -20,7 +21,7 @@ public class MemberService {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
-    public void createMember(String name, String email, String password){
+    public void createMember(String name, String email, String password, String makeStarId, String phoneNumber){
         Optional<Member> memberOpt = memberRepository.findByEmail(email);
 
         if(memberOpt.isPresent()){
@@ -29,7 +30,7 @@ public class MemberService {
 
         String encodedPassword = passwordEncoder.encode(password);
 
-        Member member = Member.of(name, email, encodedPassword);
+        Member member = Member.of(name, email, encodedPassword, makeStarId, phoneNumber);
         memberRepository.save(member);
     }
 
@@ -50,5 +51,13 @@ public class MemberService {
     public void validateMember(long memberId){
         memberRepository.findById(memberId)
                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+    }
+
+    public MemberResponse getMemberByServiceId(String serviceId){
+        Member member = memberRepository.findByServiceId(serviceId)
+                                        .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+
+        long memberId = member.getId();
+        return MemberResponse.of(memberId);
     }
 }
