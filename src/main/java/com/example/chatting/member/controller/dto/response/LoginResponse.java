@@ -8,19 +8,16 @@ import lombok.NoArgsConstructor;
 @Getter
 public class LoginResponse {
 
-    private long memberId;
-    private String token;
+    private String jwtToken;
 
     @Builder
-    public LoginResponse(long memberId, String token){
-        this.memberId = memberId;
-        this.token = token;
+    public LoginResponse(String jwtToken){
+        this.jwtToken = jwtToken;
     }
 
-    public static LoginResponse of(long memberId, String token){
+    public static LoginResponse of(String jwtToken){
         return LoginResponse.builder()
-                            .memberId(memberId)
-                            .token(token)
+                            .jwtToken(jwtToken)
                             .build();
     }
 }

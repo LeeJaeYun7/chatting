@@ -16,17 +16,17 @@ public class FriendService {
 
     private final FriendRepository friendRepository;
 
-    public void createFriend(long memberId, long friendMemberId){
-        Friend friend = Friend.of(memberId, friendMemberId);
+    public void createFriend(String uuid, String friendUuid){
+        Friend friend = Friend.of(uuid, friendUuid);
         friendRepository.save(friend);
     }
 
-    public List<Friend> readFriendList(long memberId){
-        return friendRepository.findByMemberId(memberId);
+    public List<Friend> readFriendList(String uuid){
+        return friendRepository.findByUuid(uuid);
     }
 
-    public void validateFriend(long memberId, long friendMemberId){
-        Optional<Friend> friend = friendRepository.findByMemberIdAndFriendMemberId(memberId, friendMemberId);
+    public void validateFriend(String uuid, String friendUuid){
+        Optional<Friend> friend = friendRepository.findByUuidAndFriendUuid(uuid, friendUuid);
 
         if(friend.isPresent()){
             throw new CustomException(CustomExceptionType.CHATROOM_DUPLICATED);

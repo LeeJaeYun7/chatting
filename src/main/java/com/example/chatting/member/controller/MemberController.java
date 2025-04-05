@@ -1,6 +1,6 @@
 package com.example.chatting.member.controller;
 
-import com.example.chatting.member.controller.dto.request.MemberCreateRequest;
+import com.example.chatting.member.controller.dto.request.MemberSignupRequest;
 import com.example.chatting.member.controller.dto.request.MemberLoginRequest;
 import com.example.chatting.member.controller.dto.response.LoginResponse;
 import com.example.chatting.member.controller.dto.response.MemberResponse;
@@ -16,15 +16,15 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/api/v1/member/create")
-    public ResponseEntity<Void> createMember(@RequestBody MemberCreateRequest request){
+    @PostMapping("/api/v1/member/signup")
+    public ResponseEntity<Void> signupMember(@RequestBody MemberSignupRequest request){
         String name = request.getName();
         String email = request.getEmail();
         String password = request.getPassword();
         String serviceId = request.getServiceId();
         String phoneNumber = request.getPhoneNumber();
 
-        memberService.createMember(name, email, password, serviceId, phoneNumber);
+        memberService.signupMember(name, email, password, serviceId, phoneNumber);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

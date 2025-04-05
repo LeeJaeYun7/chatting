@@ -19,15 +19,15 @@ public class FriendFacade {
     private final FriendService friendService;
 
     @Transactional
-    public void createFriend(long memberId, long friendMemberId){
-        memberService.validateMember(friendMemberId);
-        friendService.validateFriend(memberId, friendMemberId);
+    public void createFriend(String uuid, String friendUuid){
+        memberService.validateMember(friendUuid);
+        friendService.validateFriend(uuid, friendUuid);
 
-        friendService.createFriend(memberId, friendMemberId);
+        friendService.createFriend(uuid, friendUuid);
     }
 
-    public List<FriendResponse> readFriendList(long memberId){
-        return friendService.readFriendList(memberId)
+    public List<FriendResponse> readFriendList(String uuid){
+        return friendService.readFriendList(uuid)
                             .stream()
                             .map(this::createFriendResponse)
                             .sorted((friend1, friend2) -> friend1.getName().compareTo(friend2.getName()))
@@ -35,9 +35,9 @@ public class FriendFacade {
     }
 
     public FriendResponse createFriendResponse(Friend friend){
-        long friendMemberId = friend.getFriendMemberId();
-        String name = memberService.getMemberNameById(friendMemberId);
+        String friendUuid = friend.getFriendUuid();
+        String name = memberService.getMemberNameByUuid(friendUuid);
 
-        return FriendResponse.of(friendMemberId, name);
+        return FriendResponse.of(friendUuid, name);
     }
 }

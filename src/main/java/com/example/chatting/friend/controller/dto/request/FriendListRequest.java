@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class FriendCreateRequest {
+public class FriendListRequest {
     private String uuid;
-    private String friendUuid;
 }

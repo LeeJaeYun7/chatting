@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class OneOnOneChatRoomCreateRequest {
-    private String uuid1;
-    private String uuid2;
+public class OneOnOneChatRoomListRequest {
+    private String uuid;
 }

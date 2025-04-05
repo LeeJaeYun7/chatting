@@ -26,27 +26,28 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
+@Slf4j
 public class JwtProvider {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public String generateToken(String email) {
+    public String generateToken(String uuid) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + 3600000);
 
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(uuid)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
     }
 
-    public String getUsername(String token) {
+    public String getUuid(String jwtToken) {
         Claims claims = Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
+                            .setSigningKey(SECRET_KEY)
+                            .parseClaimsJws(jwtToken)
+                            .getBody();
 
         return claims.getSubject();
     }
@@ -56,6 +57,7 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
+            log.error("Invalid JWT token: {}", e.getMessage());
             return false;
         }
     }

@@ -1,6 +1,7 @@
 package com.example.chatting.friend.controller;
 
 import com.example.chatting.friend.controller.dto.request.FriendCreateRequest;
+import com.example.chatting.friend.controller.dto.request.FriendListRequest;
 import com.example.chatting.friend.controller.dto.response.FriendResponse;
 import com.example.chatting.friend.service.facade.FriendFacade;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +19,18 @@ public class FriendController {
 
     @PostMapping("/api/v1/friend/create")
     public ResponseEntity<Void> createFriend(@RequestBody FriendCreateRequest friendCreateRequest){
-        long memberId = friendCreateRequest.getMemberId();
-        long friendMemberId = friendCreateRequest.getFriendMemberId();
+        String uuid = friendCreateRequest.getUuid();
+        String friendUuid = friendCreateRequest.getFriendUuid();
 
-        friendFacade.createFriend(memberId, friendMemberId);
+        friendFacade.createFriend(uuid, friendUuid);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/api/v1/friend/list")
-    public ResponseEntity<List<FriendResponse>> readFriendList(@RequestParam("memberId") long memberId){
-        List<FriendResponse> friendResponseList = friendFacade.readFriendList(memberId);
+    @PostMapping("/api/v1/friend/list")
+    public ResponseEntity<List<FriendResponse>> readFriendList(@RequestBody FriendListRequest request){
+        String uuid = request.getUuid();
+        List<FriendResponse> friendResponseList = friendFacade.readFriendList(uuid);
         return ResponseEntity.status(HttpStatus.OK).body(friendResponseList);
     }
 }

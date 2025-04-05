@@ -8,18 +8,18 @@ import lombok.NoArgsConstructor;
 @Getter
 public class FriendResponse {
 
-    private long memberId;
+    private String friendUuid;
     private String name;
 
     @Builder
-    public FriendResponse(long memberId, String name){
-        this.memberId = memberId;
+    public FriendResponse(String friendUuid, String name){
+        this.friendUuid = friendUuid;
         this.name = name;
     }
 
-    public static FriendResponse of(long memberId, String name){
+    public static FriendResponse of(String friendUuid, String name){
         return FriendResponse.builder()
-                             .memberId(memberId)
+                             .friendUuid(friendUuid)
                              .name(name)
                              .build();
     }

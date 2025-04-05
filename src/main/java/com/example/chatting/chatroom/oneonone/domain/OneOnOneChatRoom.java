@@ -1,6 +1,5 @@
 package com.example.chatting.chatroom.oneonone.domain;
 
-
 import com.example.chatting.commons.entities.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -8,13 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Table(name = "one_on_one_chat_room",
         indexes = {
-                @Index(name = "idx_member_id1", columnList = "member_id1"),
-                @Index(name = "idx_member_id2", columnList = "member_id2")
+                @Index(name = "idx_uuid1", columnList = "uuid1"),
+                @Index(name = "idx_uuid2", columnList = "uuid2"),
+                @Index(name = "idx_room_uuid", columnList = "room_uuid")  // roomUuid 인덱스 추가
         })
 @NoArgsConstructor
 public class OneOnOneChatRoom extends BaseTimeEntity {
@@ -23,24 +24,29 @@ public class OneOnOneChatRoom extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "member_id1")
-    private long memberId1;
+    @Column(name = "room_uuid")
+    private String roomUuid;
 
-    @Column(name = "member_id2")
-    private long memberId2;
+    @Column(name = "uuid1")
+    private String uuid1;
+
+    @Column(name = "uuid2")
+    private String uuid2;
 
     @Builder
-    public OneOnOneChatRoom(long memberId1, long memberId2){
-        this.memberId1 = memberId1;
-        this.memberId2 = memberId2;
+    public OneOnOneChatRoom(String roomUuid, String uuid1, String uuid2){
+        this.roomUuid = roomUuid;
+        this.uuid1 = uuid1;
+        this.uuid2 = uuid2;
         this.setCreatedAt(LocalDateTime.now());
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static OneOnOneChatRoom of(long memberId1, long memberId2){
+    public static OneOnOneChatRoom of(String uuid1, String uuid2){
         return OneOnOneChatRoom.builder()
-                               .memberId1(memberId1)
-                               .memberId2(memberId2)
+                               .roomUuid(UUID.randomUUID().toString())
+                               .uuid1(uuid1)
+                               .uuid2(uuid2)
                                .build();
     }
 }
