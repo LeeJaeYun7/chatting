@@ -16,24 +16,21 @@ public class OneOnOneChatRoomService {
 
     private final OneOnOneChatRoomRepository oneOnOneChatRoomRepository;
 
-    public long createOneOnOneChatRoom(long memberId1, long memberId2){
-        OneOnOneChatRoom oneOnOneChatRoom = OneOnOneChatRoom.of(memberId1, memberId2);
+    public String createOneOnOneChatRoom(String uuid1, String uuid2){
+        OneOnOneChatRoom oneOnOneChatRoom = OneOnOneChatRoom.of(uuid1, uuid2);
         OneOnOneChatRoom savedOneOnOneChatRoom = oneOnOneChatRoomRepository.save(oneOnOneChatRoom);
-        return savedOneOnOneChatRoom.getId();
+        return savedOneOnOneChatRoom.getRoomUuid();
     }
 
-    public List<OneOnOneChatRoom> readOneOnOneChatRooms(long memberId){
-        return oneOnOneChatRoomRepository.findByMemberId(memberId);
+    public List<OneOnOneChatRoom> readOneOnOneChatRooms(String uuid){
+        return oneOnOneChatRoomRepository.findByUuid(uuid);
     }
 
-    public void validateOneOnOneChatRoom(long memberId1, long memberId2){
-        Optional<OneOnOneChatRoom> oneOnOneChatRoom = oneOnOneChatRoomRepository.findByMembers(memberId1, memberId2);
+    public void validateOneOnOneChatRoom(String uuid1, String uuid2){
+        Optional<OneOnOneChatRoom> oneOnOneChatRoom = oneOnOneChatRoomRepository.findByUuids(uuid1, uuid2);
 
         if(oneOnOneChatRoom.isPresent()){
             throw new CustomException(CustomExceptionType.CHATROOM_DUPLICATED);
         }
     }
-
-
-
 }

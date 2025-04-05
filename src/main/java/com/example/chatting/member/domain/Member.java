@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -17,6 +18,9 @@ public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, unique = true)
+    private String uuid;
 
     @Column(nullable = false)
     private String name;
@@ -34,7 +38,8 @@ public class Member extends BaseTimeEntity {
     private String phoneNumber;
 
     @Builder
-    public Member(String name, String email, String password, String serviceId, String phoneNumber){
+    public Member(String uuid, String name, String email, String password, String serviceId, String phoneNumber){
+        this.uuid = uuid;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -46,6 +51,7 @@ public class Member extends BaseTimeEntity {
 
     public static Member of(String name, String email, String password, String serviceId, String phoneNumber){
         return Member.builder()
+                     .uuid(UUID.randomUUID().toString())
                      .name(name)
                      .email(email)
                      .password(password)

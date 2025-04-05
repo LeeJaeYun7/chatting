@@ -23,7 +23,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void createMember(String name, String email, String password, String serviceId, String phoneNumber){
+    public void signupMember(String name, String email, String password, String serviceId, String phoneNumber){
         Optional<Member> memberOpt = memberRepository.findByEmail(email);
 
         if(memberOpt.isPresent()){
@@ -44,19 +44,19 @@ public class MemberService {
             throw new CustomException(CustomExceptionType.INVALID_PASSWORD);
         }
 
-        long memberId = member.getId();
-        String jwtToken = jwtProvider.generateToken(member.getEmail());
+        String memberId = member.getUuid();
+        String jwtToken = jwtProvider.generateToken(memberId);
 
-        return LoginResponse.of(memberId, jwtToken);
+        return LoginResponse.of(jwtToken);
     }
 
-    public void validateMember(long memberId){
-        memberRepository.findById(memberId)
+    public void validateMember(String uuid){
+        memberRepository.findByUuid(uuid)
                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
     }
 
-    public String getMemberNameById(long memberId){
-        Member member = memberRepository.findById(memberId)
+    public String getMemberNameByUuid(String uuid){
+        Member member = memberRepository.findByUuid(uuid)
                                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
         return member.getName();
     }
@@ -65,7 +65,7 @@ public class MemberService {
         Member member = memberRepository.findByServiceId(serviceId)
                                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
 
-        long memberId = member.getId();
-        return MemberResponse.of(memberId);
+        String uuid = member.getUuid();
+        return MemberResponse.of(uuid);
     }
 }

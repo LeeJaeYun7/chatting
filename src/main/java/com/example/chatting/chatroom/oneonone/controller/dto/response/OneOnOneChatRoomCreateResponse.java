@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OneOnOneChatRoomCreateResponse {
 
-    private long oneOnOneChatRoomId;
+    private String oneOnOneChatRoomUuid;
 
     @Builder
-    public OneOnOneChatRoomCreateResponse(long oneOnOneChatRoomId){
-        this.oneOnOneChatRoomId = oneOnOneChatRoomId;
+    public OneOnOneChatRoomCreateResponse(String oneOnOneChatRoomUuid){
+        this.oneOnOneChatRoomUuid = oneOnOneChatRoomUuid;
     }
 
-    public static OneOnOneChatRoomCreateResponse of(long oneOnOneChatRoomId){
+    public static OneOnOneChatRoomCreateResponse of(String oneOnOneChatRoomUuid){
         return OneOnOneChatRoomCreateResponse.builder()
-                                            .oneOnOneChatRoomId(oneOnOneChatRoomId)
-                                            .build();
+                                             .oneOnOneChatRoomUuid(oneOnOneChatRoomUuid)
+                                             .build();
     }
 }

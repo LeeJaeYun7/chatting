@@ -1,6 +1,7 @@
 package com.example.chatting.chatroom.oneonone.controller;
 
 import com.example.chatting.chatroom.oneonone.controller.dto.request.OneOnOneChatRoomCreateRequest;
+import com.example.chatting.chatroom.oneonone.controller.dto.request.OneOnOneChatRoomListRequest;
 import com.example.chatting.chatroom.oneonone.controller.dto.response.OneOnOneChatRoomCreateResponse;
 import com.example.chatting.chatroom.oneonone.controller.dto.response.OneOnOneChatRoomListResponse;
 import com.example.chatting.chatroom.oneonone.service.facade.OneOnOneChatRoomFacade;
@@ -17,18 +18,19 @@ public class OneOnOneChatRoomController {
 
     @PostMapping("/api/v1/chatRoom/oneOnOne")
     public ResponseEntity<OneOnOneChatRoomCreateResponse> createOneOnOneChatRoom(@RequestBody OneOnOneChatRoomCreateRequest request){
-        long memberId1 = request.getMemberId1();
-        long memberId2 = request.getMemberId2();
+        String uuid1 = request.getUuid1();
+        String uuid2 = request.getUuid2();
 
-        long oneOnOneChatRoomId = oneOnOneChatRoomFacade.createOneOnOneChatRoom(memberId1, memberId2);
-        OneOnOneChatRoomCreateResponse response = OneOnOneChatRoomCreateResponse.of(oneOnOneChatRoomId);
+        String oneOnOneChatRoomUuid = oneOnOneChatRoomFacade.createOneOnOneChatRoom(uuid1, uuid2);
+        OneOnOneChatRoomCreateResponse response = OneOnOneChatRoomCreateResponse.of(oneOnOneChatRoomUuid);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/api/v1/chatRoom/oneOnOne")
-    public ResponseEntity<OneOnOneChatRoomListResponse> readOneOnOneChatRooms(@RequestParam("memberId") long memberId){
-        OneOnOneChatRoomListResponse response = oneOnOneChatRoomFacade.readOneOnOneChatRooms(memberId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    @PostMapping("/api/v1/chatRoom/oneOnOne/list")
+    public ResponseEntity<OneOnOneChatRoomListResponse> readOneOnOneChatRooms(@RequestBody OneOnOneChatRoomListRequest request){
+        String uuid = request.getUuid();
+        OneOnOneChatRoomListResponse response = oneOnOneChatRoomFacade.readOneOnOneChatRooms(uuid);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

@@ -16,26 +16,24 @@ public class OneOnOneChatRoomFacade {
     private final MemberService memberService;
     private final OneOnOneChatRoomService oneOnOneChatRoomService;
 
-    // 1:1 채팅방은 Facade 계층에서
-    // 두 멤버 id 중 작은 것이 항상 앞에 오도록 변환
-    public long createOneOnOneChatRoom(long memberId1, long memberId2){
-        long smallerId = Math.min(memberId1, memberId2);
-        long biggerId = Math.max(memberId1, memberId2);
+    public String createOneOnOneChatRoom(String uuid1, String uuid2){
+        String smallerUuid = uuid1.compareTo(uuid2) < 0 ? uuid1 : uuid2;
+        String biggerUuid = uuid1.compareTo(uuid2) > 0 ? uuid1 : uuid2;
 
-        memberService.validateMember(smallerId);
-        memberService.validateMember(biggerId);
+        memberService.validateMember(smallerUuid);
+        memberService.validateMember(biggerUuid);
 
-        oneOnOneChatRoomService.validateOneOnOneChatRoom(smallerId, biggerId);
+        oneOnOneChatRoomService.validateOneOnOneChatRoom(smallerUuid, biggerUuid);
 
-        return oneOnOneChatRoomService.createOneOnOneChatRoom(smallerId, biggerId);
+        return oneOnOneChatRoomService.createOneOnOneChatRoom(smallerUuid, biggerUuid);
     }
 
-    public OneOnOneChatRoomListResponse readOneOnOneChatRooms(long memberId){
-        memberService.validateMember(memberId);
+    public OneOnOneChatRoomListResponse readOneOnOneChatRooms(String uuid){
+        memberService.validateMember(uuid);
 
-        List<OneOnOneChatRoom> oneOnOneChatRoomList = oneOnOneChatRoomService.readOneOnOneChatRooms(memberId);
-        List<Long> oneOnOneChatRoomIds = oneOnOneChatRoomList.stream()
-                                                             .map(OneOnOneChatRoom::getId)
+        List<OneOnOneChatRoom> oneOnOneChatRoomList = oneOnOneChatRoomService.readOneOnOneChatRooms(uuid);
+        List<String> oneOnOneChatRoomIds = oneOnOneChatRoomList.stream()
+                                                             .map(OneOnOneChatRoom::getRoomUuid)
                                                              .toList();
 
         return OneOnOneChatRoomListResponse.of(oneOnOneChatRoomIds);

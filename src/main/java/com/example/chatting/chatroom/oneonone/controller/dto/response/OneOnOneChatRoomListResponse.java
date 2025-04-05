@@ -9,16 +9,17 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class OneOnOneChatRoomListResponse {
-    private List<Long> oneOnOneChatRoomIds;
+    private List<String> oneOnOneChatRoomUuids;
 
     @Builder
-    public OneOnOneChatRoomListResponse(List<Long> oneOnOneChatRoomIds){
-        this.oneOnOneChatRoomIds = oneOnOneChatRoomIds;
+    public OneOnOneChatRoomListResponse(List<String> oneOnOneChatRoomUuids){
+        this.oneOnOneChatRoomUuids = oneOnOneChatRoomUuids;
     }
 
-    public static OneOnOneChatRoomListResponse of(List<Long> oneOnOneChatRoomIds){
+    public static OneOnOneChatRoomListResponse of(List<String> oneOnOneChatRoomUuids){
         return OneOnOneChatRoomListResponse.builder()
-                                             .oneOnOneChatRoomIds(oneOnOneChatRoomIds)
-                                             .build();
+                                           .oneOnOneChatRoomUuids(oneOnOneChatRoomUuids)
+                                           .build();
     }
 }
+
