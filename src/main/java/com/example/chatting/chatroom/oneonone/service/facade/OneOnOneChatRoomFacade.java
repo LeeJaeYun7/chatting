@@ -1,9 +1,13 @@
 package com.example.chatting.chatroom.oneonone.service.facade;
 
+import com.example.chatting.chatroom.oneonone.controller.dto.response.OneOnOneChatRoomListResponse;
+import com.example.chatting.chatroom.oneonone.domain.OneOnOneChatRoom;
 import com.example.chatting.chatroom.oneonone.service.OneOnOneChatRoomService;
 import com.example.chatting.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -24,5 +28,16 @@ public class OneOnOneChatRoomFacade {
         oneOnOneChatRoomService.validateOneOnOneChatRoom(smallerId, biggerId);
 
         return oneOnOneChatRoomService.createOneOnOneChatRoom(smallerId, biggerId);
+    }
+
+    public OneOnOneChatRoomListResponse readOneOnOneChatRooms(long memberId){
+        memberService.validateMember(memberId);
+
+        List<OneOnOneChatRoom> oneOnOneChatRoomList = oneOnOneChatRoomService.readOneOnOneChatRooms(memberId);
+        List<Long> oneOnOneChatRoomIds = oneOnOneChatRoomList.stream()
+                                                             .map(OneOnOneChatRoom::getId)
+                                                             .toList();
+
+        return OneOnOneChatRoomListResponse.of(oneOnOneChatRoomIds);
     }
 }
