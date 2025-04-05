@@ -1,6 +1,6 @@
 package com.example.chatting.config;
 
-import com.example.chatting.security.JwtProvider;
+import com.example.chatting.security.jwt.JwtProvider;
 import com.example.chatting.security.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

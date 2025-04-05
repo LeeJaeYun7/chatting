@@ -27,21 +27,30 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "service_id", unique = true)
+    private String serviceId;
+
+    @Column(name = "phone_number", unique = true)
+    private String phoneNumber;
+
     @Builder
-    public Member(String name, String email, String password){
+    public Member(String name, String email, String password, String serviceId, String phoneNumber){
         this.name = name;
         this.email = email;
         this.password = password;
+        this.serviceId = serviceId;
+        this.phoneNumber = phoneNumber;
         this.setCreatedAt(LocalDateTime.now());
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static Member of(String name, String email, String password){
+    public static Member of(String name, String email, String password, String serviceId, String phoneNumber){
         return Member.builder()
                      .name(name)
                      .email(email)
                      .password(password)
-
+                     .serviceId(serviceId)
+                     .phoneNumber(phoneNumber)
                      .build();
     }
 }
