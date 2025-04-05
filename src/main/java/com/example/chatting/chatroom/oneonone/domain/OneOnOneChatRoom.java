@@ -19,8 +19,10 @@ public class OneOnOneChatRoom extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(name = "member_id1")
     private long memberId1;
 
+    @Column(name = "member_id2")
     private long memberId2;
 
     @Builder
@@ -33,8 +35,8 @@ public class OneOnOneChatRoom extends BaseTimeEntity {
 
     public static OneOnOneChatRoom of(long memberId1, long memberId2){
         return OneOnOneChatRoom.builder()
-                              .memberId1(memberId1)
-                              .memberId2(memberId2)
-                              .build();
+                               .memberId1(memberId1)
+                               .memberId2(memberId2)
+                               .build();
     }
 }

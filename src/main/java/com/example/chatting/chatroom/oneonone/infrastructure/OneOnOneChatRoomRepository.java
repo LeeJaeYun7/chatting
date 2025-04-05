@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface OneOnOneChatRoomRepository extends JpaRepository<OneOnOneChatRoom, Long> {
-    @Query("SELECT o FROM OneOnOneChatRoom o WHERE (o.memberId1 = :memberId1 AND o.memberId2 = :memberId2) OR (o.memberId1 = :memberId2 AND o.memberId2 = :memberId1)")
+    @Query("SELECT o FROM OneOnOneChatRoom o WHERE o.memberId1 = :memberId1 AND o.memberId2 = :memberId2")
     Optional<OneOnOneChatRoom> findByMembers(@Param("memberId1") long memberId1, @Param("memberId2") long memberId2);
 }
