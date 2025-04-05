@@ -27,8 +27,8 @@ public class FriendController {
     }
 
     @GetMapping("/api/v1/friend/list")
-    public ResponseEntity<List<FriendResponse>> retrieveFriendList(@RequestParam("memberId") long memberId){
-        List<FriendResponse> friendResponseList = friendFacade.getFriendList(memberId);
+    public ResponseEntity<List<FriendResponse>> readFriendList(@RequestParam("memberId") long memberId){
+        List<FriendResponse> friendResponseList = friendFacade.readFriendList(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(friendResponseList);
     }
 }

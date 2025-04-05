@@ -26,10 +26,11 @@ public class FriendFacade {
         friendService.createFriend(memberId, friendMemberId);
     }
 
-    public List<FriendResponse> getFriendList(long memberId){
-        return friendService.getFriendList(memberId)
+    public List<FriendResponse> readFriendList(long memberId){
+        return friendService.readFriendList(memberId)
                             .stream()
                             .map(this::createFriendResponse)
+                            .sorted((friend1, friend2) -> friend1.getName().compareTo(friend2.getName()))
                             .collect(Collectors.toList());
     }
 

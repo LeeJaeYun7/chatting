@@ -11,7 +11,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name = "one_on_one_chat_room")
+@Table(name = "one_on_one_chat_room",
+        indexes = {
+                @Index(name = "idx_member_id1", columnList = "member_id1"),
+                @Index(name = "idx_member_id2", columnList = "member_id2")
+        })
 @NoArgsConstructor
 public class OneOnOneChatRoom extends BaseTimeEntity {
 

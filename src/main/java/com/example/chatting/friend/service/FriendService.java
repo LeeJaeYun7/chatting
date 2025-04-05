@@ -21,7 +21,7 @@ public class FriendService {
         friendRepository.save(friend);
     }
 
-    public List<Friend> getFriendList(long memberId){
+    public List<Friend> readFriendList(long memberId){
         return friendRepository.findByMemberId(memberId);
     }
 
