@@ -1,6 +1,6 @@
 package com.example.chatting.security.filter;
 
-import com.example.chatting.security.JwtProvider;
+import com.example.chatting.security.jwt.JwtProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

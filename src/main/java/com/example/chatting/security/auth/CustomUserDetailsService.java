@@ -1,4 +1,4 @@
-package com.example.chatting.security;
+package com.example.chatting.security.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;

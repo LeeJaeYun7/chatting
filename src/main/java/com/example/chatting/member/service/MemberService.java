@@ -6,7 +6,7 @@ import com.example.chatting.member.controller.dto.response.LoginResponse;
 import com.example.chatting.member.controller.dto.response.MemberResponse;
 import com.example.chatting.member.domain.Member;
 import com.example.chatting.member.infrastructure.MemberRepository;
-import com.example.chatting.security.JwtProvider;
+import com.example.chatting.security.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

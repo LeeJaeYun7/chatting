@@ -1,4 +1,4 @@
-package com.example.chatting.security;
+package com.example.chatting.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
