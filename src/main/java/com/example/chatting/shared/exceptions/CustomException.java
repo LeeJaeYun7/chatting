@@ -1,4 +1,4 @@
-package com.example.chatting.commons.exceptions;
+package com.example.chatting.shared.exceptions;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

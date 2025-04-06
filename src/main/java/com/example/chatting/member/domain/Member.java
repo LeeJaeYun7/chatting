@@ -1,6 +1,6 @@
 package com.example.chatting.member.domain;
 
-import com.example.chatting.commons.entities.BaseTimeEntity;
+import com.example.chatting.shared.entities.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

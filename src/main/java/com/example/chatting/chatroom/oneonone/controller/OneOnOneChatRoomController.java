@@ -1,10 +1,10 @@
 package com.example.chatting.chatroom.oneonone.controller;
 
 import com.example.chatting.chatroom.oneonone.controller.dto.request.OneOnOneChatRoomCreateRequest;
-import com.example.chatting.chatroom.oneonone.controller.dto.request.OneOnOneChatRoomListRequest;
 import com.example.chatting.chatroom.oneonone.controller.dto.response.OneOnOneChatRoomCreateResponse;
 import com.example.chatting.chatroom.oneonone.controller.dto.response.OneOnOneChatRoomListResponse;
-import com.example.chatting.chatroom.oneonone.service.facade.OneOnOneChatRoomFacade;
+import com.example.chatting.chatroom.oneonone.application.facade.OneOnOneChatRoomFacade;
+import com.example.chatting.security.auth.AuthenticationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,19 +18,20 @@ public class OneOnOneChatRoomController {
 
     @PostMapping("/api/v1/chatRoom/oneOnOne")
     public ResponseEntity<OneOnOneChatRoomCreateResponse> createOneOnOneChatRoom(@RequestBody OneOnOneChatRoomCreateRequest request){
-        String uuid1 = request.getUuid1();
-        String uuid2 = request.getUuid2();
+        String memberUuid = AuthenticationUtils.getMemberUuid();
+        String otherMemberUuid = request.getOtherMemberUuid();
 
-        String oneOnOneChatRoomUuid = oneOnOneChatRoomFacade.createOneOnOneChatRoom(uuid1, uuid2);
-        OneOnOneChatRoomCreateResponse response = OneOnOneChatRoomCreateResponse.of(oneOnOneChatRoomUuid);
+        String roomUuid = oneOnOneChatRoomFacade.createOneOnOneChatRoom(memberUuid, otherMemberUuid);
+        OneOnOneChatRoomCreateResponse response = OneOnOneChatRoomCreateResponse.of(roomUuid);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PostMapping("/api/v1/chatRoom/oneOnOne/list")
-    public ResponseEntity<OneOnOneChatRoomListResponse> readOneOnOneChatRooms(@RequestBody OneOnOneChatRoomListRequest request){
-        String uuid = request.getUuid();
-        OneOnOneChatRoomListResponse response = oneOnOneChatRoomFacade.readOneOnOneChatRooms(uuid);
+    @GetMapping("/api/v1/chatRoom/oneOnOne/list")
+    public ResponseEntity<OneOnOneChatRoomListResponse> readOneOnOneChatRooms(){
+        String memberUuid = AuthenticationUtils.getMemberUuid();
+
+        OneOnOneChatRoomListResponse response = oneOnOneChatRoomFacade.readOneOnOneChatRooms(memberUuid);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

@@ -1,9 +1,9 @@
-package com.example.chatting.friend.service.facade;
+package com.example.chatting.friend.application.facade;
 
 import com.example.chatting.friend.controller.dto.response.FriendResponse;
 import com.example.chatting.friend.domain.Friend;
-import com.example.chatting.friend.service.FriendService;
-import com.example.chatting.member.service.MemberService;
+import com.example.chatting.friend.application.FriendService;
+import com.example.chatting.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +19,15 @@ public class FriendFacade {
     private final FriendService friendService;
 
     @Transactional
-    public void createFriend(String uuid, String friendUuid){
+    public void createFriend(String memberUuid, String friendUuid){
         memberService.validateMember(friendUuid);
-        friendService.validateFriend(uuid, friendUuid);
+        friendService.validateFriend(memberUuid, friendUuid);
 
-        friendService.createFriend(uuid, friendUuid);
+        friendService.createFriend(memberUuid, friendUuid);
     }
 
-    public List<FriendResponse> readFriendList(String uuid){
-        return friendService.readFriendList(uuid)
+    public List<FriendResponse> readFriendList(String memberUuid){
+        return friendService.readFriendList(memberUuid)
                             .stream()
                             .map(this::createFriendResponse)
                             .sorted((friend1, friend2) -> friend1.getName().compareTo(friend2.getName()))
@@ -36,7 +36,7 @@ public class FriendFacade {
 
     public FriendResponse createFriendResponse(Friend friend){
         String friendUuid = friend.getFriendUuid();
-        String name = memberService.getMemberNameByUuid(friendUuid);
+        String name = memberService.getMemberNameByMemberUuid(friendUuid);
 
         return FriendResponse.of(friendUuid, name);
     }

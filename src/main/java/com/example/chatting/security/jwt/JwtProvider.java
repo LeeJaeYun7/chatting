@@ -19,19 +19,19 @@ public class JwtProvider {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
-    public String generateToken(String uuid) {
+    public String generateToken(String memberUuid) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + 3600000);
 
         return Jwts.builder()
-                .setSubject(uuid)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-                .compact();
+                   .setSubject(memberUuid)
+                   .setIssuedAt(now)
+                   .setExpiration(expiryDate)
+                   .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                   .compact();
     }
 
-    public String getUuid(String jwtToken) {
+    public String getMemberUuid(String jwtToken) {
         Claims claims = Jwts.parser()
                             .setSigningKey(SECRET_KEY)
                             .parseClaimsJws(jwtToken)

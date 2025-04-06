@@ -1,9 +1,9 @@
-package com.example.chatting.chatroom.oneonone.service;
+package com.example.chatting.chatroom.oneonone.application;
 
 import com.example.chatting.chatroom.oneonone.domain.OneOnOneChatRoom;
 import com.example.chatting.chatroom.oneonone.infrastructure.OneOnOneChatRoomRepository;
-import com.example.chatting.commons.exceptions.CustomException;
-import com.example.chatting.commons.exceptions.CustomExceptionType;
+import com.example.chatting.shared.exceptions.CustomException;
+import com.example.chatting.shared.exceptions.CustomExceptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +22,12 @@ public class OneOnOneChatRoomService {
         return savedOneOnOneChatRoom.getRoomUuid();
     }
 
-    public List<OneOnOneChatRoom> readOneOnOneChatRooms(String uuid){
-        return oneOnOneChatRoomRepository.findByUuid(uuid);
+    public List<OneOnOneChatRoom> readOneOnOneChatRooms(String memberUuid){
+        return oneOnOneChatRoomRepository.findByMemberUuid(memberUuid);
     }
 
-    public void validateOneOnOneChatRoom(String uuid1, String uuid2){
-        Optional<OneOnOneChatRoom> oneOnOneChatRoom = oneOnOneChatRoomRepository.findByUuids(uuid1, uuid2);
+    public void validateOneOnOneChatRoom(String memberUuid1, String memberUuid2){
+        Optional<OneOnOneChatRoom> oneOnOneChatRoom = oneOnOneChatRoomRepository.findByMemberUuids(memberUuid1, memberUuid2);
 
         if(oneOnOneChatRoom.isPresent()){
             throw new CustomException(CustomExceptionType.CHATROOM_DUPLICATED);

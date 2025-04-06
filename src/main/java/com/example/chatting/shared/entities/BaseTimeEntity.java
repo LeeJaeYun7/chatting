@@ -1,4 +1,4 @@
-package com.example.chatting.commons.entities;
+package com.example.chatting.shared.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

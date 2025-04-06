@@ -1,6 +1,6 @@
 package com.example.chatting.friend.domain;
 
-import com.example.chatting.commons.entities.BaseTimeEntity;
+import com.example.chatting.shared.entities.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,23 +18,23 @@ public class Friend extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="uuid")
-    private String uuid;
+    @Column(name="member_uuid")
+    private String memberUuid;
 
     @Column(name="friend_uuid")
     private String friendUuid;
 
     @Builder
-    public Friend(String uuid, String friendUuid){
-        this.uuid = uuid;
+    public Friend(String memberUuid, String friendUuid){
+        this.memberUuid = memberUuid;
         this.friendUuid = friendUuid;
         this.setCreatedAt(LocalDateTime.now());
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static Friend of(String uuid, String friendUuid){
+    public static Friend of(String memberUuid, String friendUuid){
         return Friend.builder()
-                     .uuid(uuid)
+                     .memberUuid(memberUuid)
                      .friendUuid(friendUuid)
                      .build();
     }

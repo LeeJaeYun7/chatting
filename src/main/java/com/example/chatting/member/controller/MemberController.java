@@ -4,7 +4,7 @@ import com.example.chatting.member.controller.dto.request.MemberSignupRequest;
 import com.example.chatting.member.controller.dto.request.MemberLoginRequest;
 import com.example.chatting.member.controller.dto.response.LoginResponse;
 import com.example.chatting.member.controller.dto.response.MemberResponse;
-import com.example.chatting.member.service.MemberService;
+import com.example.chatting.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
