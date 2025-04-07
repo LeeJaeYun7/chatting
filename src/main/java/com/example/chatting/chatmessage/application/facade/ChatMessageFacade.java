@@ -4,7 +4,6 @@ import com.example.chatting.chatmessage.controller.dto.response.ChatMessageRespo
 import com.example.chatting.chatmessage.controller.dto.response.ChatMessageResponseList;
 import com.example.chatting.chatmessage.application.ChatMessageService;
 import com.example.chatting.chatmessage.domain.event.ChatMessageEvent;
-import com.example.chatting.chatmessage.domain.event.ChatMessageEventProducer;
 import com.example.chatting.chatmessage.infrastructure.kafka.ChatMessageEventProducerImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
