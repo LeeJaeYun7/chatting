@@ -6,7 +6,6 @@ import com.example.chatting.friend.application.FriendService;
 import com.example.chatting.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
