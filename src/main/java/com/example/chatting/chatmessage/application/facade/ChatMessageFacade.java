@@ -15,20 +15,20 @@ public class ChatMessageFacade {
 
     private final ChatMessageService chatMessageService;
 
-    public void createChatMessage(String roomUuid, String senderUuid, String receiverUuid, String content){
-        chatMessageService.createChatMessage(roomUuid, senderUuid, receiverUuid, content);
+    public void createChatMessage(long roomId, long senderId, long receiverId, String content){
+        chatMessageService.createChatMessage(roomId, senderId, receiverId, content);
     }
 
-    public ChatMessageResponseList getChatMessagesByRoomUuid(String roomUuid) {
-        List<ChatMessageResponse> messages = chatMessageService.getChatMessagesByRoomUuid(roomUuid).stream()
+    public ChatMessageResponseList getChatMessagesByRoomId(long roomId) {
+        List<ChatMessageResponse> messages = chatMessageService.getChatMessagesByRoomId(roomId).stream()
                                                                     .sorted(Comparator.comparing(chatMessage -> chatMessage.getTimestamp()))
                                                                     .map(chatMessage -> ChatMessageResponse.of(
-                                                                            chatMessage.getSenderUuid(),
-                                                                            chatMessage.getReceiverUuid(),
+                                                                            chatMessage.getSenderId(),
+                                                                            chatMessage.getReceiverId(),
                                                                             chatMessage.getContent(),
                                                                             chatMessage.getTimestamp()))
                                                                    .toList();
 
-        return ChatMessageResponseList.of(roomUuid, messages);
+        return ChatMessageResponseList.of(roomId, messages);
     }
 }

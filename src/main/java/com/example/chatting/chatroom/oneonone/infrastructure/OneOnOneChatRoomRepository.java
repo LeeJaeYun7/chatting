@@ -11,9 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface OneOnOneChatRoomRepository extends JpaRepository<OneOnOneChatRoom, Long> {
-    @Query("SELECT o FROM OneOnOneChatRoom o WHERE o.memberUuid1 = :memberUuid1 AND o.memberUuid2 = :memberUuid2")
-    Optional<OneOnOneChatRoom> findByMemberUuids(@Param("memberUuid1") String memberUuid1, @Param("memberUuid2") String memberUuid2);
+    @Query("SELECT o FROM OneOnOneChatRoom o WHERE o.memberId1 = :memberId1 AND o.memberId2 = :memberId2")
+    Optional<OneOnOneChatRoom> findByMemberIds(@Param("memberId1") long memberId1, @Param("memberId2") long memberId2);
 
-    @Query("SELECT o FROM OneOnOneChatRoom o WHERE o.memberUuid1 = :memberUuid OR o.memberUuid2 = :memberUuid")
-    List<OneOnOneChatRoom> findByMemberUuid(@Param("memberUuid") String memberUuid);
+    @Query("SELECT o FROM OneOnOneChatRoom o WHERE o.memberId1 = :memberId OR o.memberId2 = :memberId")
+    List<OneOnOneChatRoom> findByMemberId(@Param("memberId") long memberId);
 }

@@ -6,6 +6,7 @@ import com.example.chatting.friend.domain.Friend;
 import com.example.chatting.friend.infrastructure.FriendRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,17 +17,18 @@ public class FriendService {
 
     private final FriendRepository friendRepository;
 
-    public void createFriend(String memberUuid, String friendUuid){
-        Friend friend = Friend.of(memberUuid, friendUuid);
+    @Transactional
+    public void createFriend(long memberId, long friendId){
+        Friend friend = Friend.of(memberId, friendId);
         friendRepository.save(friend);
     }
 
-    public List<Friend> readFriendList(String memberUuid){
-        return friendRepository.findByMemberUuid(memberUuid);
+    public List<Friend> readFriendList(long memberId){
+        return friendRepository.findByMemberId(memberId);
     }
 
-    public void validateFriend(String memberUuid, String friendUuid){
-        Optional<Friend> friend = friendRepository.findByMemberUuidAndFriendUuid(memberUuid, friendUuid);
+    public void validateFriend(long memberId, long friendId){
+        Optional<Friend> friend = friendRepository.findByMemberIdAndFriendId(memberId, friendId);
 
         if(friend.isPresent()){
             throw new CustomException(CustomExceptionType.CHATROOM_DUPLICATED);

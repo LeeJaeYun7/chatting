@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name = "friend", indexes = @Index(name = "idx_uuid", columnList = "uuid"))
+@Table(name = "friend", indexes = @Index(name = "idx_member_id", columnList = "member_id"))
 @NoArgsConstructor
 public class Friend extends BaseTimeEntity {
 
@@ -18,24 +18,24 @@ public class Friend extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="member_uuid")
-    private String memberUuid;
+    @Column(name="member_id")
+    private long memberId;
 
-    @Column(name="friend_uuid")
-    private String friendUuid;
+    @Column(name="friend_id")
+    private long friendId;
 
     @Builder
-    public Friend(String memberUuid, String friendUuid){
-        this.memberUuid = memberUuid;
-        this.friendUuid = friendUuid;
+    public Friend(long memberId, long friendId){
+        this.memberId = memberId;
+        this.friendId = friendId;
         this.setCreatedAt(LocalDateTime.now());
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static Friend of(String memberUuid, String friendUuid){
+    public static Friend of(long memberId, long friendId){
         return Friend.builder()
-                     .memberUuid(memberUuid)
-                     .friendUuid(friendUuid)
+                     .memberId(memberId)
+                     .friendId(friendId)
                      .build();
     }
 }

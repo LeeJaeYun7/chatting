@@ -23,7 +23,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화 (필요하면 활성화)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/member/create", "/api/v1/member/login").permitAll() // 인증 없이 허용
+                        .requestMatchers("/api/v1/member/signup", "/api/v1/member/login", "/api/v1/chatMessage").permitAll() // 인증 없이 허용
                         .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // 필터 추가
 

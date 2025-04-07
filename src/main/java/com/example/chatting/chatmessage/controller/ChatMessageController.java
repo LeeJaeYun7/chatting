@@ -16,17 +16,17 @@ public class ChatMessageController {
 
     @PostMapping("/api/v1/chatMessage")
     public void createChatMessage(@RequestBody ChatMessageRequest request){
-        String roomUuid = request.getRoomUuid();
-        String senderUuid = request.getSenderUuid();
-        String receiverUuid = request.getReceiverUuid();
+        long roomId = request.getRoomId();
+        long senderId = request.getSenderId();
+        long receiverId = request.getReceiverId();
         String content = request.getContent();
 
-        chatMessageFacade.createChatMessage(roomUuid, senderUuid, receiverUuid, content);
+        chatMessageFacade.createChatMessage(roomId, senderId, receiverId, content);
     }
 
     @GetMapping("/api/v1/chatMessage")
-    public ResponseEntity<ChatMessageResponseList> readChatMessages(@RequestParam String roomUuid) {
-        ChatMessageResponseList responseList = chatMessageFacade.getChatMessagesByRoomUuid(roomUuid);
+    public ResponseEntity<ChatMessageResponseList> readChatMessages(@RequestParam long roomId) {
+        ChatMessageResponseList responseList = chatMessageFacade.getChatMessagesByRoomId(roomId);
 
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }

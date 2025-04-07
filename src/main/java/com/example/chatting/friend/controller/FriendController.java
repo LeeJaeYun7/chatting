@@ -19,19 +19,19 @@ public class FriendController {
 
     @PostMapping("/api/v1/friend/create")
     public ResponseEntity<Void> createFriend(@RequestBody FriendCreateRequest friendCreateRequest){
-        String memberUuid = AuthenticationUtils.getMemberUuid();
-        String friendUuid = friendCreateRequest.getFriendUuid();
+        long memberId = AuthenticationUtils.getMemberId();
+        long friendId = friendCreateRequest.getFriendId();
 
-        friendFacade.createFriend(memberUuid, friendUuid);
+        friendFacade.createFriend(memberId, friendId);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/api/v1/friend/list")
     public ResponseEntity<List<FriendResponse>> readFriendList(){
-        String memberUuid = AuthenticationUtils.getMemberUuid();
+        long memberId = AuthenticationUtils.getMemberId();
 
-        List<FriendResponse> friendResponseList = friendFacade.readFriendList(memberUuid);
+        List<FriendResponse> friendResponseList = friendFacade.readFriendList(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(friendResponseList);
     }
 }

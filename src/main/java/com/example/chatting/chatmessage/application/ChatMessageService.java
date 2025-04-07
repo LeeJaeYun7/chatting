@@ -14,14 +14,14 @@ public class ChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;
 
-    public void createChatMessage(String roomUuid, String senderUuid, String receiverUuid, String content) {
+    public void createChatMessage(long roomId, long senderId, long receiverId, String content) {
         LocalDateTime timestamp = LocalDateTime.now();
-        ChatMessage chatMessage = ChatMessage.of(roomUuid, senderUuid, receiverUuid, content, timestamp);
+        ChatMessage chatMessage = ChatMessage.of(roomId, senderId, receiverId, content, timestamp);
         chatMessageRepository.save(chatMessage); // MongoDB에 메시지 저장
     }
 
     // 예시: 채팅방의 모든 메시지 조회
-    public List<ChatMessage> getChatMessagesByRoomUuid(String roomUuid) {
-        return chatMessageRepository.findByRoomUuid(roomUuid);
+    public List<ChatMessage> getChatMessagesByRoomId(long roomId) {
+        return chatMessageRepository.findByRoomId(roomId);
     }
 }

@@ -18,20 +18,20 @@ public class OneOnOneChatRoomController {
 
     @PostMapping("/api/v1/chatRoom/oneOnOne")
     public ResponseEntity<OneOnOneChatRoomCreateResponse> createOneOnOneChatRoom(@RequestBody OneOnOneChatRoomCreateRequest request){
-        String memberUuid = AuthenticationUtils.getMemberUuid();
-        String otherMemberUuid = request.getOtherMemberUuid();
+        long memberId = AuthenticationUtils.getMemberId();
+        long otherMemberId = request.getOtherMemberId();
 
-        String roomUuid = oneOnOneChatRoomFacade.createOneOnOneChatRoom(memberUuid, otherMemberUuid);
-        OneOnOneChatRoomCreateResponse response = OneOnOneChatRoomCreateResponse.of(roomUuid);
+        long roomId = oneOnOneChatRoomFacade.createOneOnOneChatRoom(memberId, otherMemberId);
+        OneOnOneChatRoomCreateResponse response = OneOnOneChatRoomCreateResponse.of(roomId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/api/v1/chatRoom/oneOnOne/list")
     public ResponseEntity<OneOnOneChatRoomListResponse> readOneOnOneChatRooms(){
-        String memberUuid = AuthenticationUtils.getMemberUuid();
+        long memberId = AuthenticationUtils.getMemberId();
 
-        OneOnOneChatRoomListResponse response = oneOnOneChatRoomFacade.readOneOnOneChatRooms(memberUuid);
+        OneOnOneChatRoomListResponse response = oneOnOneChatRoomFacade.readOneOnOneChatRooms(memberId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

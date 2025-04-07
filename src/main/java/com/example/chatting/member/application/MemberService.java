@@ -44,19 +44,19 @@ public class MemberService {
             throw new CustomException(CustomExceptionType.INVALID_PASSWORD);
         }
 
-        String memberId = member.getUuid();
+        long memberId = member.getMemberId();
         String jwtToken = jwtProvider.generateToken(memberId);
 
         return LoginResponse.of(jwtToken);
     }
 
-    public void validateMember(String memberUuid){
-        memberRepository.findByUuid(memberUuid)
+    public void validateMember(long memberId){
+        memberRepository.findByMemberId(memberId)
                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
     }
 
-    public String getMemberNameByMemberUuid(String memberUuid){
-        Member member = memberRepository.findByUuid(memberUuid)
+    public String getMemberNameByMemberId(long memberId){
+        Member member = memberRepository.findByMemberId(memberId)
                                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
         return member.getName();
     }
@@ -65,7 +65,7 @@ public class MemberService {
         Member member = memberRepository.findByServiceId(serviceId)
                                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
 
-        String uuid = member.getUuid();
-        return MemberResponse.of(uuid);
+        long memberId = member.getMemberId();
+        return MemberResponse.of(memberId);
     }
 }

@@ -10,18 +10,18 @@ import java.util.List;
 @Getter
 public class ChatMessageResponseList {
 
-    private String roomUuid;
+    private long roomId;
     private List<ChatMessageResponse> messages;
 
     @Builder
-    public ChatMessageResponseList(String roomUuid, List<ChatMessageResponse> messages){
-        this.roomUuid = roomUuid;
+    public ChatMessageResponseList(long roomId, List<ChatMessageResponse> messages){
+        this.roomId = roomId;
         this.messages = messages;
     }
 
-    public static ChatMessageResponseList of(String roomUuid, List<ChatMessageResponse> messages){
+    public static ChatMessageResponseList of(long roomId, List<ChatMessageResponse> messages){
         return ChatMessageResponseList.builder()
-                                      .roomUuid(roomUuid)
+                                      .roomId(roomId)
                                       .messages(messages)
                                       .build();
     }

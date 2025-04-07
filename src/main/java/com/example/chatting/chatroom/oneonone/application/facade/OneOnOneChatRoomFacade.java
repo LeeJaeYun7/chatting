@@ -17,27 +17,27 @@ public class OneOnOneChatRoomFacade {
     private final MemberService memberService;
     private final OneOnOneChatRoomService oneOnOneChatRoomService;
 
-    public String createOneOnOneChatRoom(String memberUuid, String otherMemberUuid){
-        String smallerUuid = memberUuid.compareTo(otherMemberUuid) < 0 ? memberUuid : otherMemberUuid;
-        String biggerUuid = memberUuid.compareTo(otherMemberUuid) > 0 ? memberUuid : otherMemberUuid;
+    public long createOneOnOneChatRoom(long memberId, long otherMemberId){
+        long smallerId = memberId < otherMemberId ? memberId : otherMemberId;
+        long biggerId = memberId > otherMemberId ? memberId : otherMemberId;
 
-        memberService.validateMember(smallerUuid);
-        memberService.validateMember(biggerUuid);
+        memberService.validateMember(smallerId);
+        memberService.validateMember(biggerId);
 
-        oneOnOneChatRoomService.validateOneOnOneChatRoom(smallerUuid, biggerUuid);
+        oneOnOneChatRoomService.validateOneOnOneChatRoom(smallerId, biggerId);
 
-        return oneOnOneChatRoomService.createOneOnOneChatRoom(smallerUuid, biggerUuid);
+        return oneOnOneChatRoomService.createOneOnOneChatRoom(smallerId, biggerId);
     }
 
-    public OneOnOneChatRoomListResponse readOneOnOneChatRooms(String memberUuid){
-        memberService.validateMember(memberUuid);
+    public OneOnOneChatRoomListResponse readOneOnOneChatRooms(long memberId){
+        memberService.validateMember(memberId);
 
-        List<OneOnOneChatRoomResponse> responseList = oneOnOneChatRoomService.readOneOnOneChatRooms(memberUuid).stream()
+        List<OneOnOneChatRoomResponse> responseList = oneOnOneChatRoomService.readOneOnOneChatRooms(memberId).stream()
                 .map(room -> {
-                    String otherMemberUuid = room.getMemberUuid1().equals(memberUuid)
-                            ? room.getMemberUuid2()
-                            : room.getMemberUuid1();
-                    return OneOnOneChatRoomResponse.of(room.getRoomUuid(), otherMemberUuid);
+                    long otherMemberUuid = room.getMemberId1() == memberId
+                            ? room.getMemberId2()
+                            : room.getMemberId1();
+                    return OneOnOneChatRoomResponse.of(room.getRoomId(), otherMemberUuid);
                 })
                 .collect(Collectors.toList());
 

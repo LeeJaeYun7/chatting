@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OneOnOneChatRoomResponse {
 
-    private String roomUuid;
-    private String otherMemberUuid;
+    private long roomId;
+    private long otherMemberId;
 
     @Builder
-    public OneOnOneChatRoomResponse(String roomUuid, String otherMemberUuid){
-        this.roomUuid = roomUuid;
-        this.otherMemberUuid = otherMemberUuid;
+    public OneOnOneChatRoomResponse(long roomId, long otherMemberId){
+        this.roomId = roomId;
+        this.otherMemberId = otherMemberId;
     }
 
-    public static OneOnOneChatRoomResponse of(String roomUuid, String otherMemberUuid){
+    public static OneOnOneChatRoomResponse of(long roomId, long otherMemberId){
         return OneOnOneChatRoomResponse.builder()
-                                       .roomUuid(roomUuid)
-                                       .otherMemberUuid(otherMemberUuid)
+                                       .roomId(roomId)
+                                       .otherMemberId(otherMemberId)
                                        .build();
     }
 }

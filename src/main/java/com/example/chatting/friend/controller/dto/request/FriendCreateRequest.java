@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class FriendCreateRequest {
-    private String friendUuid;
+    private long friendId;
 }

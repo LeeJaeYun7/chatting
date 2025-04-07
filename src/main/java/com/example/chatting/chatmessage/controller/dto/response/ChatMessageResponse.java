@@ -10,23 +10,23 @@ import java.time.LocalDateTime;
 @Getter
 public class ChatMessageResponse {
 
-    private String senderUuid;    // 메시지를 보낸 사용자 ID
-    private String receiverUuid;
+    private long senderId;    // 메시지를 보낸 사용자 ID
+    private long receiverId;
     private String content;   // 메시지 내용
     private LocalDateTime timestamp; // 메시지 보낸 시각
 
     @Builder
-    public ChatMessageResponse(String senderUuid, String receiverUuid, String content, LocalDateTime timestamp){
-        this.senderUuid = senderUuid;
-        this.receiverUuid = receiverUuid;
+    public ChatMessageResponse(long senderId, long receiverId, String content, LocalDateTime timestamp){
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.content = content;
         this.timestamp = timestamp;
     }
 
-    public static ChatMessageResponse of(String senderUuid, String receiverUuid, String content, LocalDateTime timestamp){
+    public static ChatMessageResponse of(long senderId, long receiverId, String content, LocalDateTime timestamp){
         return ChatMessageResponse.builder()
-                                  .senderUuid(senderUuid)
-                                  .receiverUuid(receiverUuid)
+                                  .senderId(senderId)
+                                  .receiverId(receiverId)
                                   .content(content)
                                   .timestamp(timestamp)
                                   .build();

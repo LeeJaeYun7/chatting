@@ -32,8 +32,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(token) && jwtProvider.validateToken(token)) {
             // 토큰에서 사용자 정보 추출
-            String memberUuid = jwtProvider.getMemberUuid(token);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(memberUuid);
+            String memberId = jwtProvider.getMemberId(token);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(memberId);
 
             // Spring Security Context에 사용자 정보 저장
             jwtProvider.setAuthentication(userDetails);
