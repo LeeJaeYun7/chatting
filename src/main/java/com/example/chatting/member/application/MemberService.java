@@ -1,7 +1,7 @@
-package com.example.chatting.member.service;
+package com.example.chatting.member.application;
 
-import com.example.chatting.commons.exceptions.CustomException;
-import com.example.chatting.commons.exceptions.CustomExceptionType;
+import com.example.chatting.shared.exceptions.CustomException;
+import com.example.chatting.shared.exceptions.CustomExceptionType;
 import com.example.chatting.member.controller.dto.response.LoginResponse;
 import com.example.chatting.member.controller.dto.response.MemberResponse;
 import com.example.chatting.member.domain.Member;
@@ -44,19 +44,19 @@ public class MemberService {
             throw new CustomException(CustomExceptionType.INVALID_PASSWORD);
         }
 
-        String memberId = member.getUuid();
+        long memberId = member.getMemberId();
         String jwtToken = jwtProvider.generateToken(memberId);
 
         return LoginResponse.of(jwtToken);
     }
 
-    public void validateMember(String uuid){
-        memberRepository.findByUuid(uuid)
+    public void validateMember(long memberId){
+        memberRepository.findByMemberId(memberId)
                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
     }
 
-    public String getMemberNameByUuid(String uuid){
-        Member member = memberRepository.findByUuid(uuid)
+    public String getMemberNameByMemberId(long memberId){
+        Member member = memberRepository.findByMemberId(memberId)
                                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
         return member.getName();
     }
@@ -65,7 +65,7 @@ public class MemberService {
         Member member = memberRepository.findByServiceId(serviceId)
                                         .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
 
-        String uuid = member.getUuid();
-        return MemberResponse.of(uuid);
+        long memberId = member.getMemberId();
+        return MemberResponse.of(memberId);
     }
 }

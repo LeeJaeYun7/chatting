@@ -1,21 +1,21 @@
 package com.example.chatting.chatroom.oneonone.domain;
 
-import com.example.chatting.commons.entities.BaseTimeEntity;
+import com.example.chatting.shared.entities.BaseTimeEntity;
+import com.example.chatting.shared.utils.SnowFlakeGenerator;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Table(name = "one_on_one_chat_room",
         indexes = {
-                @Index(name = "idx_uuid1", columnList = "uuid1"),
-                @Index(name = "idx_uuid2", columnList = "uuid2"),
-                @Index(name = "idx_room_uuid", columnList = "room_uuid")  // roomUuid 인덱스 추가
+                @Index(name = "idx_member_id1", columnList = "member_id1"),
+                @Index(name = "idx_member_id2", columnList = "member_id2"),
+                @Index(name = "idx_room_id", columnList = "room_id")  // roomUuid 인덱스 추가
         })
 @NoArgsConstructor
 public class OneOnOneChatRoom extends BaseTimeEntity {
@@ -24,29 +24,29 @@ public class OneOnOneChatRoom extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "room_uuid")
-    private String roomUuid;
+    @Column(name = "room_id")
+    private long roomId;
 
-    @Column(name = "uuid1")
-    private String uuid1;
+    @Column(name = "member_id1")
+    private long memberId1;
 
-    @Column(name = "uuid2")
-    private String uuid2;
+    @Column(name = "member_id2")
+    private long memberId2;
 
     @Builder
-    public OneOnOneChatRoom(String roomUuid, String uuid1, String uuid2){
-        this.roomUuid = roomUuid;
-        this.uuid1 = uuid1;
-        this.uuid2 = uuid2;
+    public OneOnOneChatRoom(long roomId, long memberId1, long memberId2){
+        this.roomId = roomId;
+        this.memberId1 = memberId1;
+        this.memberId2 = memberId2;
         this.setCreatedAt(LocalDateTime.now());
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static OneOnOneChatRoom of(String uuid1, String uuid2){
+    public static OneOnOneChatRoom of(long memberId1, long memberId2){
         return OneOnOneChatRoom.builder()
-                               .roomUuid(UUID.randomUUID().toString())
-                               .uuid1(uuid1)
-                               .uuid2(uuid2)
+                               .roomId(SnowFlakeGenerator.createSnowFlake())
+                               .memberId1(memberId1)
+                               .memberId2(memberId2)
                                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.example.chatting.member.domain;
 
-import com.example.chatting.commons.entities.BaseTimeEntity;
+import com.example.chatting.shared.entities.BaseTimeEntity;
+import com.example.chatting.shared.utils.SnowFlakeGenerator;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,7 +21,7 @@ public class Member extends BaseTimeEntity {
     private long id;
 
     @Column(nullable = false, unique = true)
-    private String uuid;
+    private long memberId;
 
     @Column(nullable = false)
     private String name;
@@ -38,8 +39,8 @@ public class Member extends BaseTimeEntity {
     private String phoneNumber;
 
     @Builder
-    public Member(String uuid, String name, String email, String password, String serviceId, String phoneNumber){
-        this.uuid = uuid;
+    public Member(long memberId, String name, String email, String password, String serviceId, String phoneNumber){
+        this.memberId = memberId;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -51,7 +52,7 @@ public class Member extends BaseTimeEntity {
 
     public static Member of(String name, String email, String password, String serviceId, String phoneNumber){
         return Member.builder()
-                     .uuid(UUID.randomUUID().toString())
+                     .memberId(SnowFlakeGenerator.createSnowFlake())
                      .name(name)
                      .email(email)
                      .password(password)

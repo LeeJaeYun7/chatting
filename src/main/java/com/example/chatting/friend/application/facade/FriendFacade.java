@@ -1,12 +1,11 @@
-package com.example.chatting.friend.service.facade;
+package com.example.chatting.friend.application.facade;
 
 import com.example.chatting.friend.controller.dto.response.FriendResponse;
 import com.example.chatting.friend.domain.Friend;
-import com.example.chatting.friend.service.FriendService;
-import com.example.chatting.member.service.MemberService;
+import com.example.chatting.friend.application.FriendService;
+import com.example.chatting.member.application.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,16 +17,15 @@ public class FriendFacade {
     private final MemberService memberService;
     private final FriendService friendService;
 
-    @Transactional
-    public void createFriend(String uuid, String friendUuid){
-        memberService.validateMember(friendUuid);
-        friendService.validateFriend(uuid, friendUuid);
+    public void createFriend(long memberId, long friendId){
+        memberService.validateMember(friendId);
+        friendService.validateFriend(memberId, friendId);
 
-        friendService.createFriend(uuid, friendUuid);
+        friendService.createFriend(memberId, friendId);
     }
 
-    public List<FriendResponse> readFriendList(String uuid){
-        return friendService.readFriendList(uuid)
+    public List<FriendResponse> readFriendList(long memberId){
+        return friendService.readFriendList(memberId)
                             .stream()
                             .map(this::createFriendResponse)
                             .sorted((friend1, friend2) -> friend1.getName().compareTo(friend2.getName()))
@@ -35,9 +33,9 @@ public class FriendFacade {
     }
 
     public FriendResponse createFriendResponse(Friend friend){
-        String friendUuid = friend.getFriendUuid();
-        String name = memberService.getMemberNameByUuid(friendUuid);
+        long friendId = friend.getFriendId();
+        String name = memberService.getMemberNameByMemberId(friendId);
 
-        return FriendResponse.of(friendUuid, name);
+        return FriendResponse.of(friendId, name);
     }
 }

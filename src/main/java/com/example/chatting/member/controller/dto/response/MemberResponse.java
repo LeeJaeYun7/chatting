@@ -7,16 +7,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class MemberResponse {
-    private String uuid;
+    private long memberId;
 
     @Builder
-    public MemberResponse(String uuid){
-        this.uuid = uuid;
+    public MemberResponse(long memberId){
+        this.memberId = memberId;
     }
 
-    public static MemberResponse of(String uuid){
+    public static MemberResponse of(long memberId){
         return MemberResponse.builder()
-                             .uuid(uuid)
+                             .memberId(memberId)
                              .build();
     }
 }
