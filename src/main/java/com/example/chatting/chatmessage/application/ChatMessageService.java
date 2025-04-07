@@ -14,10 +14,11 @@ public class ChatMessageService {
 
     private final ChatMessageRepository chatMessageRepository;
 
-    public void createChatMessage(long roomId, long senderId, long receiverId, String content) {
+    public LocalDateTime createChatMessage(long roomId, long senderId, long receiverId, String content) {
         LocalDateTime timestamp = LocalDateTime.now();
         ChatMessage chatMessage = ChatMessage.of(roomId, senderId, receiverId, content, timestamp);
         chatMessageRepository.save(chatMessage); // MongoDB에 메시지 저장
+        return timestamp;
     }
 
     // 예시: 채팅방의 모든 메시지 조회

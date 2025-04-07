@@ -16,9 +16,9 @@ public class ChatMessageController {
 
     @PostMapping("/api/v1/chatMessage")
     public void createChatMessage(@RequestBody ChatMessageRequest request){
-        long roomId = request.getRoomId();
-        long senderId = request.getSenderId();
-        long receiverId = request.getReceiverId();
+        long roomId = Long.parseLong(request.getRoomId());
+        long senderId = Long.parseLong(request.getSenderId());
+        long receiverId = Long.parseLong(request.getReceiverId());
         String content = request.getContent();
 
         chatMessageFacade.createChatMessage(roomId, senderId, receiverId, content);

@@ -1,6 +1,7 @@
 package com.example.chatting.chatmessage.domain;
 
 import com.example.chatting.shared.entities.BaseTimeEntity;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class ChatMessage extends BaseTimeEntity {
 
     @Id
-    private long id;        // MongoDB에서 자동 생성되는 id 필드
+    private ObjectId id;        // MongoDB에서 자동 생성되는 id 필드
     private long roomId;    // 채팅방 ID
     private long senderId;    // 메시지를 보낸 사용자 ID
     private long receiverId; // 메세지를 받은 사용자 ID

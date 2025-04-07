@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ChatMessageRequest {
 
-    private long roomId;     // 어떤 채팅방에 보낸 건지
-    private long senderId;
-    private long receiverId;
+    private String roomId;     // 어떤 채팅방에 보낸 건지
+    private String senderId;
+    private String receiverId;
     private String content;    // 메시지 내용
 
     @Builder
-    public ChatMessageRequest(long roomId, long senderId, long receiverId, String content) {
+    public ChatMessageRequest(String roomId, String senderId, String receiverId, String content) {
         this.roomId = roomId;
         this.senderId = senderId;
         this.receiverId = receiverId;
