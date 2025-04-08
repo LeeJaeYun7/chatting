@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @Configuration
 @EnableMongoRepositories(
-        basePackages = "com.example.chatting.chatmessage.infrastructure"
+        basePackages = {"com.example.chatting.chat.oneonone.message.infrastructure", "com.example.chatting.chat.group.message.infrastructure"}
 )
 public class MongoConfig {
 }
