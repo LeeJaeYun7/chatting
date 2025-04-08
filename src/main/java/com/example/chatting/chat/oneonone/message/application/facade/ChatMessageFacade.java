@@ -3,6 +3,7 @@ package com.example.chatting.chat.oneonone.message.application.facade;
 import com.example.chatting.chat.oneonone.message.application.ChatMessageService;
 import com.example.chatting.chat.oneonone.message.controller.dto.response.ChatMessageResponse;
 import com.example.chatting.chat.oneonone.message.controller.dto.response.ChatMessageResponseList;
+import com.example.chatting.chat.oneonone.message.domain.ChatMessage;
 import com.example.chatting.chat.oneonone.message.domain.event.ChatMessageEvent;
 import com.example.chatting.chat.oneonone.message.infrastructure.kafka.ChatMessageEventProducerImpl;
 import com.example.chatting.chat.oneonone.room.application.OneOnOneChatRoomService;
@@ -31,7 +32,7 @@ public class ChatMessageFacade {
 
     public ChatMessageResponseList getChatMessagesByRoomId(long roomId) {
         List<ChatMessageResponse> messages = chatMessageService.getChatMessagesByRoomId(roomId).stream()
-                                                                    .sorted(Comparator.comparing(chatMessage -> chatMessage.getTimestamp()))
+                                                                    .sorted(Comparator.comparing(ChatMessage::getTimestamp))
                                                                     .map(chatMessage -> ChatMessageResponse.of(
                                                                             chatMessage.getSenderId(),
                                                                             chatMessage.getReceiverId(),

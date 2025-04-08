@@ -3,7 +3,6 @@ package com.example.chatting.chat.group.message.controller;
 import com.example.chatting.chat.group.message.application.facade.GroupChatMessageFacade;
 import com.example.chatting.chat.group.message.controller.dto.GroupChatMessageCreateRequest;
 import com.example.chatting.chat.group.message.controller.dto.GroupChatMessageReadRequest;
-import com.example.chatting.security.auth.AuthenticationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

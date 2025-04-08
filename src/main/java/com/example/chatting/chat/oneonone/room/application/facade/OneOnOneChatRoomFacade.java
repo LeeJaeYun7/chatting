@@ -18,8 +18,8 @@ public class OneOnOneChatRoomFacade {
     private final OneOnOneChatRoomService oneOnOneChatRoomService;
 
     public long createOneOnOneChatRoom(long memberId, long otherMemberId){
-        long smallerId = memberId < otherMemberId ? memberId : otherMemberId;
-        long biggerId = memberId > otherMemberId ? memberId : otherMemberId;
+        long smallerId = Math.min(memberId, otherMemberId);
+        long biggerId = Math.max(memberId, otherMemberId);
 
         memberService.validateMember(smallerId);
         memberService.validateMember(biggerId);
