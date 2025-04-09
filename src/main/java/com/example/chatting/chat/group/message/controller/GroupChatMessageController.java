@@ -20,6 +20,14 @@ public class GroupChatMessageController {
         long senderId = Long.parseLong(request.getSenderId());
         String content = request.getContent();
 
+        System.out.println("roomId 도착");
+        System.out.println("senderId 도착");
+        System.out.println("content 도착");
+
+        System.out.println(roomId);
+        System.out.println(senderId);
+        System.out.println(content);
+
         groupChatMessageFacade.createGroupChatMessage(roomId, senderId, content);
     }
 

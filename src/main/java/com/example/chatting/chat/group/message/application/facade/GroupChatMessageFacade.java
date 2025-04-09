@@ -4,7 +4,6 @@ import com.example.chatting.chat.group.message.application.GroupChatMessageServi
 import com.example.chatting.chat.group.message.domain.GroupChatMessage;
 import com.example.chatting.chat.group.message.domain.event.GroupChatMessageEvent;
 import com.example.chatting.chat.group.message.domain.event.GroupChatMessageEventProducer;
-import com.example.chatting.chat.group.message.infrastructure.kafka.GroupChatMessageEventProducerImpl;
 import com.example.chatting.chat.group.participant.application.GroupChatParticipantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
