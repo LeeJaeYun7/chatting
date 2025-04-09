@@ -68,4 +68,11 @@ public class MemberService {
         long memberId = member.getMemberId();
         return MemberResponse.of(memberId);
     }
+
+    @Transactional
+    public void updateMemberStatus(long memberId, boolean isOnline){
+        Member member = memberRepository.findByMemberId(memberId)
+                                        .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+        member.updateStatus(isOnline);
+    }
 }

@@ -3,6 +3,7 @@ package com.example.chatting.chat.group.message.application.facade;
 import com.example.chatting.chat.group.message.application.GroupChatMessageService;
 import com.example.chatting.chat.group.message.domain.GroupChatMessage;
 import com.example.chatting.chat.group.message.domain.event.GroupChatMessageEvent;
+import com.example.chatting.chat.group.message.domain.event.GroupChatMessageEventProducer;
 import com.example.chatting.chat.group.message.infrastructure.kafka.GroupChatMessageEventProducerImpl;
 import com.example.chatting.chat.group.participant.application.GroupChatParticipantService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class GroupChatMessageFacade {
 
     private final GroupChatMessageService groupChatMessageService;
     private final GroupChatParticipantService groupChatParticipantService;
-    private final GroupChatMessageEventProducerImpl groupChatMessageEventProducerImpl;
+    private final GroupChatMessageEventProducer groupChatMessageEventProducer;
 
     public void createGroupChatMessage(long roomId, long senderId, String content){
         LocalDateTime timestamp = groupChatMessageService.createGroupChatMessage(roomId, senderId, content);
@@ -29,7 +30,7 @@ public class GroupChatMessageFacade {
                                                                  .collect(Collectors.toList());
 
         GroupChatMessageEvent groupChatMessageEvent = GroupChatMessageEvent.of(String.valueOf(roomId), String.valueOf(senderId), participantIds, content, timestamp);
-        groupChatMessageEventProducerImpl.sendGroupChatMessageEvent(groupChatMessageEvent);
+        groupChatMessageEventProducer.sendGroupChatMessageEvent(groupChatMessageEvent);
     }
 
     public List<GroupChatMessage> readGroupChatMessages(long roomId) {
