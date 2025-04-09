@@ -21,7 +21,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public Properties kafkaGroupChatProducerConfig() {
+    public Properties kafkaProducerConfig() {
         Properties configs = new Properties();
         configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());

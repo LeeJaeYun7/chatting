@@ -7,6 +7,7 @@ import com.example.chatting.member.controller.dto.response.MemberResponse;
 import com.example.chatting.member.domain.Member;
 import com.example.chatting.member.infrastructure.MemberRepository;
 import com.example.chatting.security.jwt.JwtProvider;
+import com.example.chatting.shared.utils.SnowflakeIdGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final SnowflakeIdGenerator idGenerator;
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
 
@@ -30,9 +32,10 @@ public class MemberService {
             throw new CustomException(CustomExceptionType.MEMBER_DUPLICATED);
         }
 
+        long memberId = idGenerator.nextId();
         String encodedPassword = passwordEncoder.encode(password);
 
-        Member member = Member.of(name, email, encodedPassword, serviceId, phoneNumber);
+        Member member = Member.of(memberId, name, email, encodedPassword, serviceId, phoneNumber);
         memberRepository.save(member);
     }
 
@@ -67,5 +70,18 @@ public class MemberService {
 
         long memberId = member.getMemberId();
         return MemberResponse.of(memberId);
+    }
+
+    @Transactional
+    public void updateMemberStatus(long memberId, boolean isOnline){
+        Member member = memberRepository.findByMemberId(memberId)
+                                        .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+        member.updateStatus(isOnline);
+    }
+
+    public boolean getMemberStatus(long memberId){
+        Member member = memberRepository.findByMemberId(memberId)
+                .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+        return member.isOnline();
     }
 }

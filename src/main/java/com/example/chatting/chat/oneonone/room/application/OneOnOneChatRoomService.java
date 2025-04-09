@@ -4,6 +4,7 @@ import com.example.chatting.chat.oneonone.room.domain.OneOnOneChatRoom;
 import com.example.chatting.chat.oneonone.room.infrastructure.OneOnOneChatRoomRepository;
 import com.example.chatting.shared.exceptions.CustomException;
 import com.example.chatting.shared.exceptions.CustomExceptionType;
+import com.example.chatting.shared.utils.SnowflakeIdGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +17,12 @@ import java.util.Optional;
 public class OneOnOneChatRoomService {
 
     private final OneOnOneChatRoomRepository oneOnOneChatRoomRepository;
-
+    private final SnowflakeIdGenerator idGenerator;
     @Transactional
     public long createOneOnOneChatRoom(long memberId1, long memberId2){
-        OneOnOneChatRoom oneOnOneChatRoom = OneOnOneChatRoom.of(memberId1, memberId2);
+        long roomId = idGenerator.nextId();
+
+        OneOnOneChatRoom oneOnOneChatRoom = OneOnOneChatRoom.of(roomId, memberId1, memberId2);
         OneOnOneChatRoom savedOneOnOneChatRoom = oneOnOneChatRoomRepository.save(oneOnOneChatRoom);
         return savedOneOnOneChatRoom.getRoomId();
     }
