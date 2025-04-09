@@ -8,19 +8,19 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class ChatMessageResponseList {
+public class OneOnOneChatMessageResponseList {
 
     private long roomId;
-    private List<ChatMessageResponse> messages;
+    private List<OneOnOneChatMessageResponse> messages;
 
     @Builder
-    public ChatMessageResponseList(long roomId, List<ChatMessageResponse> messages){
+    public OneOnOneChatMessageResponseList(long roomId, List<OneOnOneChatMessageResponse> messages){
         this.roomId = roomId;
         this.messages = messages;
     }
 
-    public static ChatMessageResponseList of(long roomId, List<ChatMessageResponse> messages){
-        return ChatMessageResponseList.builder()
+    public static OneOnOneChatMessageResponseList of(long roomId, List<OneOnOneChatMessageResponse> messages){
+        return OneOnOneChatMessageResponseList.builder()
                                       .roomId(roomId)
                                       .messages(messages)
                                       .build();

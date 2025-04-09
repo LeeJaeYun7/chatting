@@ -3,7 +3,7 @@ package com.example.chatting.member.infrastructure.kafka;
 import com.example.chatting.member.application.facade.MemberFacade;
 import com.example.chatting.member.domain.event.MemberStatusChangeEvent;
 import com.example.chatting.member.domain.event.MemberStatusChangeEventConsumer;
-import com.example.chatting.member.domain.event.enums.MemberStatusEventTopics;
+import com.example.chatting.member.infrastructure.kafka.enums.MemberStatusTopics;
 import com.example.chatting.shared.utils.JsonConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,7 +17,7 @@ public class MemberStatusChangeEventConsumerImpl implements MemberStatusChangeEv
     private final MemberFacade memberFacade;
 
     @KafkaListener(
-            topics = MemberStatusEventTopics.MEMBER_STATUS_TOPIC,
+            topics = MemberStatusTopics.MEMBER_STATUS_TOPIC,
             groupId = "member-status-group"
     )
     public void receiveMemberStatus(String message) {

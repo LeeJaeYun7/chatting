@@ -10,10 +10,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-@Document(collection = "chat_message")  // MongoDB의 'chat_message' 컬렉션에 저장
+@Document(collection = "one_on_onechat_message")  // MongoDB의 'one_on_one_chat_message' 컬렉션에 저장
 @Getter
 @NoArgsConstructor
-public class ChatMessage extends BaseTimeEntity {
+public class OneOnOneChatMessage extends BaseTimeEntity {
 
     @Id
     private ObjectId id;        // MongoDB에서 자동 생성되는 id 필드
@@ -24,7 +24,7 @@ public class ChatMessage extends BaseTimeEntity {
     private LocalDateTime timestamp; // 메시지 보낸 시각
 
     @Builder
-    public ChatMessage(long roomId, long senderId, long receiverId, String content, LocalDateTime timestamp) {
+    public OneOnOneChatMessage(long roomId, long senderId, long receiverId, String content, LocalDateTime timestamp) {
         this.roomId = roomId;
         this.senderId = senderId;
         this.receiverId = receiverId;
@@ -35,13 +35,13 @@ public class ChatMessage extends BaseTimeEntity {
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static ChatMessage of(long roomId, long senderId, long receiverId, String content, LocalDateTime timestamp){
-        return ChatMessage.builder()
-                          .roomId(roomId)
-                          .senderId(senderId)
-                          .receiverId(receiverId)
-                          .content(content)
-                          .timestamp(timestamp)
-                          .build();
+    public static OneOnOneChatMessage of(long roomId, long senderId, long receiverId, String content, LocalDateTime timestamp){
+        return OneOnOneChatMessage.builder()
+                                  .roomId(roomId)
+                                  .senderId(senderId)
+                                  .receiverId(receiverId)
+                                  .content(content)
+                                  .timestamp(timestamp)
+                                  .build();
     }
 }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
-public class ChatMessageEvent {
+public class OneOnOneChatMessageEvent {
 
     private String roomId;    // 채팅방 ID
     private String senderId;    // 메시지를 보낸 사용자 ID
@@ -17,7 +17,7 @@ public class ChatMessageEvent {
     private LocalDateTime timestamp; // 메시지 보낸 시각
 
     @Builder
-    public ChatMessageEvent(String roomId, String senderId, String receiverId, String content, LocalDateTime timestamp) {
+    public OneOnOneChatMessageEvent(String roomId, String senderId, String receiverId, String content, LocalDateTime timestamp) {
         this.roomId = roomId;
         this.senderId = senderId;
         this.receiverId = receiverId;
@@ -25,8 +25,8 @@ public class ChatMessageEvent {
         this.timestamp = timestamp;
     }
 
-    public static ChatMessageEvent of(String roomId, String senderId, String receiverId, String content, LocalDateTime timestamp) {
-        return ChatMessageEvent.builder()
+    public static OneOnOneChatMessageEvent of(String roomId, String senderId, String receiverId, String content, LocalDateTime timestamp) {
+        return OneOnOneChatMessageEvent.builder()
                                .roomId(roomId)
                                .senderId(senderId)
                                .receiverId(receiverId)

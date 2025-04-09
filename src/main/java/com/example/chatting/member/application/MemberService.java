@@ -81,7 +81,7 @@ public class MemberService {
 
     public boolean getMemberStatus(long memberId){
         Member member = memberRepository.findByMemberId(memberId)
-                .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
+                                        .orElseThrow(() -> new CustomException(CustomExceptionType.MEMBER_NOT_FOUND));
         return member.isOnline();
     }
 }
