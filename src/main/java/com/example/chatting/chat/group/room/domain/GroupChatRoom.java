@@ -1,7 +1,6 @@
 package com.example.chatting.chat.group.room.domain;
 
 import com.example.chatting.shared.entities.BaseTimeEntity;
-import com.example.chatting.shared.utils.SnowFlakeGenerator;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,9 +39,9 @@ public class GroupChatRoom extends BaseTimeEntity {
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static GroupChatRoom of(long creatorId, String name){
+    public static GroupChatRoom of(long roomId, long creatorId, String name){
         return GroupChatRoom.builder()
-                            .roomId(SnowFlakeGenerator.createSnowFlake())
+                            .roomId(roomId)
                             .creatorId(creatorId)
                             .name(name)
                             .build();

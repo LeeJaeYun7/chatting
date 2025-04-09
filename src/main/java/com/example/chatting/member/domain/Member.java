@@ -1,7 +1,6 @@
 package com.example.chatting.member.domain;
 
 import com.example.chatting.shared.entities.BaseTimeEntity;
-import com.example.chatting.shared.utils.SnowFlakeGenerator;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,9 +52,9 @@ public class Member extends BaseTimeEntity {
         this.setUpdatedAt(LocalDateTime.now());
     }
 
-    public static Member of(String name, String email, String password, String serviceId, String phoneNumber){
+    public static Member of(long memberId, String name, String email, String password, String serviceId, String phoneNumber){
         return Member.builder()
-                     .memberId(SnowFlakeGenerator.createSnowFlake())
+                     .memberId(memberId)
                      .name(name)
                      .email(email)
                      .password(password)
