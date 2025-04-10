@@ -14,7 +14,7 @@
 - 웹소켓 서버 -> 스프링 서버 통신에 메시지 큐인 Kafka 사용
 
 ### 4-1. Consumer Group 관리
-- 스프링 서버의 Consumer는 Consumer Group 관리를 통해 하나의 파티션이 하나의 Consumer에 할당되도록 구
+- 스프링 서버의 Consumer는 Consumer Group 관리를 통해 하나의 파티션이 하나의 Consumer에 할당되도록 구현
 
 ## 5. 레디스(Redis)
 
