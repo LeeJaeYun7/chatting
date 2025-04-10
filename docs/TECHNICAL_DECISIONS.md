@@ -16,6 +16,10 @@
 ### 4-1. Consumer Group 관리
 - 스프링 서버의 Consumer는 Consumer Group 관리를 통해 하나의 파티션이 하나의 Consumer에 할당되도록 구현
 
+### 4-2. Dead Letter Queue 관리
+- 웹소켓 서버에서 메시지 발행에 실패한 경우, 해당 메시지는 Dead Letter Queue(DLQ) 토픽에 저장
+- 이후, 스케줄러를 통해 DLQ에 쌓인 메시지를 일정 주기로 재발송 처리
+
 ## 5. 레디스(Redis)
 
 ### 5-1. 사용자 접속 정보 캐싱 
